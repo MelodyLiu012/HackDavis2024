@@ -24,6 +24,7 @@ void setup() {
   pinMode(motor1Pin1, OUTPUT);
   pinMode(motor1Pin2, OUTPUT);
   pinMode(enable1Pin, OUTPUT);
+  pinMode(2, OUTPUT);
   
   // configure LED PWM functionalitites
   ledcSetup(pwmChannel, freq, resolution);
@@ -72,7 +73,7 @@ void loop() {
             client.println();
 
             // the content of the HTTP response follows the header:
-            client.print("<a href=\"/ONE\">Click  here to unlock</a><br>");
+            client.print("<a style=\"font-size:100px;\" href=\"/ONE\">Click  here to unlock</a><br>");
 
             // The HTTP response ends with another blank line:
             client.println();
@@ -98,6 +99,8 @@ void loop() {
 }
 
 void unlock(){
+  digitalWrite(2, HIGH);
+
   // Move the DC motor forward at maximum speed
   Serial.println("Unlocking");
   digitalWrite(motor1Pin1, LOW);
@@ -119,4 +122,6 @@ void unlock(){
   Serial.println("Motor stopped");
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, LOW);
+
+  digitalWrite(2, LOW);
 }
